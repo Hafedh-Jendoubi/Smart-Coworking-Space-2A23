@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>mail</class>
+ <widget class="QDialog" name="mail">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>713</width>
+    <height>505</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Dialog</string>
+  </property>
+  <widget class="QPushButton" name="pushButton">
+   <property name="geometry">
+    <rect>
+     <x>600</x>
+     <y>460</y>
+     <width>80</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Close</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="subject">
+   <property name="geometry">
+    <rect>
+     <x>31</x>
+     <y>60</y>
+     <width>651</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="placeholderText">
+    <string>subject</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="rcpt">
+   <property name="geometry">
+    <rect>
+     <x>31</x>
+     <y>26</y>
+     <width>491</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="placeholderText">
+    <string>recipient</string>
+   </property>
+  </widget>
+  <widget class="QTextEdit" name="msg">
+   <property name="geometry">
+    <rect>
+     <x>31</x>
+     <y>132</y>
+     <width>651</width>
+     <height>291</height>
+    </rect>
+   </property>
+   <property name="placeholderText">
+    <string>type your message here ...</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="file">
+   <property name="geometry">
+    <rect>
+     <x>31</x>
+     <y>96</y>
+     <width>571</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <property name="placeholderText">
+    <string>attachement here</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="mail_pass">
+   <property name="geometry">
+    <rect>
+     <x>543</x>
+     <y>26</y>
+     <width>141</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="echoMode">
+    <enum>QLineEdit::Password</enum>
+   </property>
+   <property name="placeholderText">
+    <string>your mail password</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="sendBtn">
+   <property name="geometry">
+    <rect>
+     <x>31</x>
+     <y>426</y>
+     <width>651</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Send</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="browseBtn">
+   <property name="geometry">
+    <rect>
+     <x>608</x>
+     <y>95</y>
+     <width>75</width>
+     <height>24</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Browse ...</string>
+   </property>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
