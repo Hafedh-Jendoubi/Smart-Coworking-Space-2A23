@@ -2397,32 +2397,6 @@ border-radius:10px;
      <string>Send</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="p_ledOn">
-    <property name="geometry">
-     <rect>
-      <x>320</x>
-      <y>20</y>
-      <width>80</width>
-      <height>22</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>On</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="p_ledOff">
-    <property name="geometry">
-     <rect>
-      <x>420</x>
-      <y>20</y>
-      <width>80</width>
-      <height>22</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Off</string>
-    </property>
-   </widget>
    <zorder>label_11</zorder>
    <zorder>label_20</zorder>
    <zorder>commandLinkButton_3</zorder>
@@ -2474,8 +2448,6 @@ border-radius:10px;
    <zorder>textEdit</zorder>
    <zorder>lineEdit</zorder>
    <zorder>sendButton</zorder>
-   <zorder>p_ledOn</zorder>
-   <zorder>p_ledOff</zorder>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">

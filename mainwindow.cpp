@@ -17,29 +17,12 @@ MainWindow::MainWindow(QWidget *parent)
     connect(&socket, SIGNAL(readyRead()), this, SLOT(onReadyRead()));
     connect(ui->sendButton, SIGNAL(pressed()), this, SLOT(onSendButtonPressed()));
     //Arduino
-    arduino = new seriallink;
-    arduino->openConnection();
+
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
-}
-
-void MainWindow::on_p_ledOn_clicked()
-{
-    if(arduino->isWritable())
-        arduino->write("o");
-    else
-        qDebug() << "Couldn't write to serial";
-}
-
-void MainWindow::on_p_ledOff_clicked()
-{
-    if(arduino->isWritable())
-        arduino->write("n");
-    else
-        qDebug() << "Couldn't write to serial";
 }
 
 void MainWindow::on_pushButton_clicked() //Ajout

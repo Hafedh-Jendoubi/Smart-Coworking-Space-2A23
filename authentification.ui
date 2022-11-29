@@ -61,7 +61,7 @@
    <property name="geometry">
     <rect>
      <x>48</x>
-     <y>157</y>
+     <y>140</y>
      <width>51</width>
      <height>51</height>
     </rect>
@@ -81,7 +81,7 @@
     <rect>
      <x>120</x>
      <y>90</y>
-     <width>371</width>
+     <width>431</width>
      <height>31</height>
     </rect>
    </property>
@@ -97,8 +97,8 @@ background-color:</string>
    <property name="geometry">
     <rect>
      <x>120</x>
-     <y>170</y>
-     <width>371</width>
+     <y>153</y>
+     <width>431</width>
      <height>31</height>
     </rect>
    </property>
@@ -239,6 +239,108 @@ border-radius:10px;
    <property name="text">
     <string>Cancel</string>
    </property>
+  </widget>
+  <widget class="QPushButton" name="pushButton_4">
+   <property name="geometry">
+    <rect>
+     <x>120</x>
+     <y>200</y>
+     <width>111</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Arial</family>
+     <pointsize>9</pointsize>
+     <weight>9</weight>
+     <italic>false</italic>
+     <bold>false</bold>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QPushButton {
+background-color: transparent;
+font: 75 9pt &quot;Arial&quot;;
+color: white;
+border-radius:10px;
+}
+
+QPushButton:hover {
+background-color: transparent;
+font: 75 9pt &quot;Arial&quot;;
+color: gray;
+border-radius:10px;
+}
+QPushButton:pressed {
+background-color: transparent;
+font: 75 9pt &quot;Arial&quot;;
+color:  white;
+border-radius:10px;
+}</string>
+   </property>
+   <property name="text">
+    <string>Forgot Password?</string>
+   </property>
+  </widget>
+  <widget class="QScrollArea" name="scrollArea">
+   <property name="geometry">
+    <rect>
+     <x>40</x>
+     <y>72</y>
+     <width>541</width>
+     <height>151</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true"/>
+   </property>
+   <property name="widgetResizable">
+    <bool>true</bool>
+   </property>
+   <widget class="QWidget" name="scrollAreaWidgetContents">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>0</y>
+      <width>539</width>
+      <height>149</height>
+     </rect>
+    </property>
+    <layout class="QVBoxLayout" name="verticalLayout">
+     <item>
+      <widget class="QLineEdit" name="lineEdit_3">
+       <property name="styleSheet">
+        <string notr="true">font-size: 20px;
+background-color:</string>
+       </property>
+       <property name="placeholderText">
+        <string>Employé(e) mail</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLineEdit" name="lineEdit_4">
+       <property name="styleSheet">
+        <string notr="true">font-size: 20px;</string>
+       </property>
+       <property name="placeholderText">
+        <string>New Mot de passe</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLineEdit" name="lineEdit_5">
+       <property name="styleSheet">
+        <string notr="true">font-size: 20px;</string>
+       </property>
+       <property name="placeholderText">
+        <string>Confirm Mot de passe</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
   </widget>
  </widget>
  <resources/>

@@ -50,13 +50,11 @@ private slots:
     void on_pushButton_8_clicked();
     void onReadyRead();
     void onSendButtonPressed();
-    void on_p_ledOn_clicked();
-    void on_p_ledOff_clicked();
+
 
 private:
     Ui::MainWindow *ui;
     Employe E;
     QTcpSocket socket;
-    seriallink *arduino;
 };
 #endif // MAINWINDOW_H

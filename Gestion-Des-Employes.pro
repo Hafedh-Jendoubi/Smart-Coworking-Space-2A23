@@ -16,7 +16,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-    seriallink.cpp \
+    Arduino.cpp \
     smtp.cpp \
     authentification.cpp \
     mail.cpp \
@@ -26,7 +26,7 @@ SOURCES += \
     mainwindow.cpp
 
 HEADERS += \
-    seriallink.h \
+    Arduino.h \
     smtp.h \
     authentification.h \
     mail.h \
