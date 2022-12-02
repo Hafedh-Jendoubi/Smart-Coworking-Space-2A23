@@ -18,6 +18,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
     arduino.cpp \
     mail.cpp \
+    session.cpp \
     smtp.cpp \
     application.cpp \
     connection.cpp \
@@ -28,6 +29,7 @@ SOURCES += \
 HEADERS += \
     arduino.h \
     mail.h \
+    session.h \
     smtp.h \
     application.h \
     connection.h \

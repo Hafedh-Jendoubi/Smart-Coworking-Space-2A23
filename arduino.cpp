@@ -30,7 +30,7 @@ int Arduino::connect_arduino()
         }
         return 1;
     }
-    return 1;
+    return -1;
 }
 
 int Arduino::close_arduino()

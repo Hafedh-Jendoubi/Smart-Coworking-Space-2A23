@@ -2,14 +2,18 @@
 #define APPLICATION_H
 
 #include <QDialog>
+#include <QPrintDialog>
 #include <QPrinter>
 #include <QPainter>
 #include <QTcpSocket>
 #include <QHostAddress>
+#include <QSystemTrayIcon>
 
 #include "employe.h"
+#include "session.h"
 #include "mainwindow.h"
 #include "mail.h"
+#include "arduino.h"
 
 namespace Ui {
 class application;
@@ -42,12 +46,38 @@ private slots:
     void on_pushButton_8_clicked();
     void onReadyRead();
     void onSendButtonPressed();
+    void on_commandLinkButton_5_clicked();
+    void on_commandLinkButton_clicked();
+
+    void on_pushButton_ajouter_clicked();
+    void on_butto_supp_clicked();
+    void on_update_clicked();
+    void on_comboBox_2_currentIndexChanged(int index);
+    void on_pushButton_recherche_clicked();
+    void on_pushButton_PDF_clicked();
+    void on_pushButton_envoyer_clicked();
+    void on_pushButton_image_clicked();
+    void update_label();
+    void on_pushButton_7_clicked();
     void on_commandLinkButton_9_clicked();
+    void on_commandLinkButton_10_clicked();
+
+    void on_commandLinkButton_11_clicked();
+
+    void on_commandLinkButton_15_clicked();
+
+    void on_pushButton_21_clicked();
+
+    void on_pushButton_9_clicked();
 
 private:
     Ui::application *ui;
     Employe E;
+    Session S;
+    QSystemTrayIcon *notifier;
+    QByteArray data;
     QTcpSocket socket;
+    Arduino A;
 };
 
 #endif // APPLICATION_H
