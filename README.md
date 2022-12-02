@@ -1,6 +1,6 @@
 # Smart-Coworking-Space-2A23
 
-**Coash:**
+**Coach:**
  * Sana Chaar
 
 **Team members:**
