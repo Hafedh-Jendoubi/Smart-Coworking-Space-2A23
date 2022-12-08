@@ -6,10 +6,23 @@
 #include <QDebug>
 #include <QMessageBox>
 
+#include <QMessageBox>
+#include <QIntValidator>
+#include <QDebug>
+#include <QProcess>
+#include <QDir>
+#include <QDesktopServices>
+#include <cstdlib>
+#include<QPainter>
+#include<QPdfWriter>
+
+#include "client.h"
 #include "application.h"
 #include "ui_application.h"
 #include "connection.h"
 #include "arduino.h"
+
+
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -40,5 +53,9 @@ private:
     QByteArray data;
     QString data_text;
     Arduino a;
+
+
+
+
 };
 #endif // MAINWINDOW_H

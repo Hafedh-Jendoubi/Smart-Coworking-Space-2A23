@@ -1,9 +1,8 @@
-QT       += core gui sql printsupport network widgets serialport
+QT       += core gui sql printsupport network widgets serialport multimedia multimediawidgets charts
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 CONFIG += c++11
-
 # The following define makes your compiler emit warnings if you use
 # any Qt feature that has been marked deprecated (the exact warnings
 # depend on your compiler). Please consult the documentation of the
@@ -17,29 +16,38 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
     arduino.cpp \
+    client.cpp \
     mail.cpp \
+    materiel.cpp \
     session.cpp \
     smtp.cpp \
     application.cpp \
     connection.cpp \
     employe.cpp \
     main.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    stat_client.cpp \
+    smtp_client.cpp
 
 HEADERS += \
     arduino.h \
+    client.h \
     mail.h \
+    materiel.h \
     session.h \
     smtp.h \
     application.h \
     connection.h \
     employe.h \
-    mainwindow.h
+    mainwindow.h \
+    stat_client.h \
+    smtp_client.h
 
 FORMS += \
     application.ui \
     mail.ui \
-    mainwindow.ui
+    mainwindow.ui \
+    stat_client.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
