@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/new/prefix1">
+        <file>pngtree-blue-gradient-web-ui-background-image_518658.jpg</file>
+    </qresource>
+</RCC>
