@@ -1,4 +1,4 @@
-QT       += core gui sql printsupport network widgets serialport multimedia multimediawidgets charts
+QT       += core gui sql printsupport network widgets serialport multimedia multimediawidgets charts axcontainer
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -27,7 +27,8 @@ SOURCES += \
     main.cpp \
     mainwindow.cpp \
     stat_client.cpp \
-    smtp_client.cpp
+    smtp_client.cpp \
+    salle.cpp
 
 HEADERS += \
     arduino.h \
@@ -41,7 +42,9 @@ HEADERS += \
     employe.h \
     mainwindow.h \
     stat_client.h \
-    smtp_client.h
+    smtp_client.h \
+    salle.h \
+    webaxwidget.h
 
 FORMS += \
     application.ui \

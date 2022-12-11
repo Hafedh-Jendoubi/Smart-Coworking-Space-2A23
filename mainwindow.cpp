@@ -79,6 +79,8 @@ void MainWindow::on_pushButton_2_clicked()
                     a->getUi()->username->setText(email);
                     a->getUi()->username_2->setText(email);
                     a->getUi()->username_3->setText(email);
+                    a->getUi()->username_4->setText(email);
+                    a->getUi()->username_5->setText(email);
                     QString text = ui->lineEdit->text();
                     QString username;
                     for(int i=0; i<email.length()-10; i++)

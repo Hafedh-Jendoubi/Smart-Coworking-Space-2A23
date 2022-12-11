@@ -7,6 +7,8 @@ application::application(QWidget *parent) :
 {
     ui->setupUi(this);
 
+    ui->stackedWidget->setCurrentIndex(3);
+
     //Partie Employé(e):
     ui->stackedWidget->setCurrentIndex(1);
     ui->tab_employe->setModel(E.afficher()); ui->textEdit->setReadOnly(true);
@@ -45,6 +47,17 @@ application::application(QWidget *parent) :
     ui->tab_materiel_1->setModel(M.afficher());
     QObject::connect(A.getserial(),SIGNAL(readyRead()),this,SLOT(update_label_1()));
     QObject::connect(A.getserial(),SIGNAL(readyRead()),this,SLOT(update_label_2()));
+
+    //mahdi
+    ui->tableClient_1->setModel(C.afficher());
+
+    //Partie salles:
+    ui->WebBrowser_2->hide();
+    ui->modifierwidget->hide();
+    ui->ajouterwidget->hide();
+    QSettings settings(QSettings::IniFormat, QSettings::UserScope,
+                       QCoreApplication::organizationName(), QCoreApplication::applicationName());
+    show_tables();
 
 }
 
@@ -500,7 +513,7 @@ void application::on_pushButton_PDF_clicked()
 
 void application::on_pushButton_envoyer_clicked()
 {
-    Smtp* smtp = new Smtp("mohamedkhalil.debaieb@esprit.tn", "211JMT5311", "smtp.gmail.com", 465);
+    Smtp* smtp = new Smtp("mohamedkhalil.debaieb@esprit.tn", "khalil007", "smtp.gmail.com", 465);
 
        connect(smtp, SIGNAL(status(QString)), this, SLOT(mailSent(QString)));
 
@@ -577,9 +590,6 @@ void application::on_pushButton_9_clicked() //Déconnection a partir du Client
     a->show();
 }
 
-//Partie Salle:
-
-
 //Partie Materiel:
 
 void application::on_pb_ajouter_1_clicked()
@@ -633,9 +643,7 @@ void application::on_comboBox_3_1_activated(const QString &arg1)
 
 void application::on_REF_recherche_1_textChanged(const QString &arg1)
 {
-    Materiel mat;
-       QString rech=ui->REF_recherche_1->text();
-       ui->tab_materiel_1->setModel(mat.RechercheMateriel(rech));
+       ui->tab_materiel_1->setModel(M.RechercheMateriel(arg1));
 }
 
 void application::on_pb_trier_1_clicked()
@@ -770,9 +778,11 @@ void application::on_pd_ajouter_1_clicked()
           QMessageBox msgBox;
           if (test)
                msgBox.setText("Ajout avec succès");
+
           else
                msgBox.setText("Echec de l'ajout");
                msgBox.exec();
+                  ui->tableClient_1->setModel(C.afficher());
        }
 
 
@@ -782,22 +792,15 @@ void application::on_pd_ajouter_1_clicked()
 
 //}
 
-void application::on_pushButton_5_clicked()
-{
-    Client c;
-    ui->tableClient_1->setModel(c.afficher());
-
-}
-
-
 void application::on_delete_btn_1_clicked()
 {   Client c;
-    int id = ui->id_delete_1->text().toInt();
+    QModelIndex index = ui->tableClient_1->currentIndex();
+    int id = index.data(Qt::DisplayRole).toInt();
     bool test=c.supprimer(id);
        QMessageBox msgBox;
-       if (test && id!=0){
+       if (test){
             msgBox.setText("Supprimer avec succès");
-            ui->tableClient_1->setModel(c.afficher());}
+            ui->tableClient_1->setModel(C.afficher());}
        else
             msgBox.setText("delete error");
             msgBox.exec();
@@ -806,15 +809,15 @@ void application::on_delete_btn_1_clicked()
 
 void application::on_pd_ajouter_2_1_clicked()
 {
-    int id =ui->leid_2_1->text ().toInt();
-          QString nom=ui->lenom_2_1->text();
-          QString prenom=ui->leprenom_2_1->text();
-          QString datenaissance=ui->ledatenaissance_2_1->text();
-          int CIN=ui->lecin_2_1->text().toInt();
-          QString Email=ui->leemail_2_1->text();
-         int telephone=ui->letelephone_2_1->text().toInt();
-          QString profession=ui->leprofeesion_2_1->text();
-          QString role=ui->lerole_2_1->text();
+    int id =ui->leid_1->text ().toInt();
+          QString nom=ui->lenom_1->text();
+          QString prenom=ui->leprenom_1->text();
+          QString datenaissance=ui->ledatenaissance_1->text();
+          int CIN=ui->lecin_1->text().toInt();
+          QString Email=ui->leemail_1->text();
+         int telephone=ui->letelephone_1->text().toInt();
+          QString profession=ui->leprofeesion_1->text();
+          QString role=ui->lerole_1->text();
        Client C(id, nom , prenom , Email , CIN , datenaissance, telephone , profession , role ) ;
           bool test=C.modifier();
              QMessageBox msgBox;
@@ -823,16 +826,15 @@ void application::on_pd_ajouter_2_1_clicked()
              else
                   msgBox.setText("Echec de la Modification");
                   msgBox.exec();
-
+        ui->tableClient_1->setModel(C.afficher());
 }
 
 
 void application::on_comboTri_1_currentTextChanged(const QString &arg1)
-{      Client C ;
-    QString tri = ui->comboTri_1->currentText();
-           if(tri=="profession"){
+{
+           if(arg1=="profession"){
             ui->tableClient_1->setModel(C.AfficherTrieprofession());
-    }else if (tri=="email"){
+    }else if (arg1=="email"){
                ui->tableClient_1->setModel(C.AfficherTrieemail());
            }else
                {
@@ -994,9 +996,200 @@ void application::on_sendBtn_clicked()
         smtp->sendMail("mediheb.arfaoui@esprit.tn", a , b,c);
 }
 
+//Partie Salles:
+
+void application::show_tables()
+{
+//creation model (masque du tableau) : permet recherche et tri
+    proxy = new QSortFilterProxyModel();
+
+ //definir la source (tableau original)
+    proxy->setSourceModel(Esalle.afficher());
+
+ //pour la recherche
+    proxy->setFilterCaseSensitivity(Qt::CaseInsensitive); // S=s (pas de difference entre majiscule et miniscule)
+    proxy->setFilterKeyColumn(-1); // chercher dans tout le tableau (-1) ou donner le numero de la colone
+   //remplissage tableau avec le masque
+    ui->tableView_2->setModel(proxy);
+
+}
+
+void application::on_ajouter_34_clicked()
+{
+    ui->ajouterwidget->show();
+}
+
+void application::on_pushButton_30_clicked()
+{
+    int numero = ui->lineEdit_14->text().toInt();
+    QString bloc = ui->lineEdit_15->text();
+    QString etat = ui->lineEdit_16->text();
+    QString type = ui->lineEdit_17->text();
+
+    Salle salle(numero, bloc, etat, type);
+
+    if (salle.ajouter()) {
+        QMessageBox::information(nullptr, QObject::tr("OK"),
+                                 QObject::tr("Ajout avec succees."),
+                                 QMessageBox::Ok);
+    }
+    else {
+        QMessageBox::critical(nullptr, QObject::tr("not OK"),
+                                 QObject::tr("Ajout non effectue."),
+                                 QMessageBox::Cancel);
+    }
+    ui->ajouterwidget->hide();
+    show_tables();
+}
+
+void application::on_supprimer_22_clicked()
+{
+    int row = ui->tableView_2->selectionModel()->currentIndex().row();
+    int numero = ui->tableView_2->model()->index(row, 0).data().toInt();
+
+    if (Esalle.supprimer(numero)) {
+        QMessageBox::information(nullptr, QObject::tr("OK"),
+                    QObject::tr("Supression avec succees.\n"), QMessageBox::Ok);
+//        qDebug() << "success\n";
+    }
+    else {
+        QMessageBox::critical(nullptr, QObject::tr("Erreur"),
+                    QObject::tr("La salle n'existe pas.\n"), QMessageBox::Cancel);
+    }
+
+//    ui->tableView->setModel(Esalle.afficher());
+    show_tables();
+}
+
+void application::on_modifier_33_clicked()
+{
+    ui->modifierwidget->show();
+    int idx = ui->tableView_2->currentIndex().row();
+    QString numero = ui->tableView_2->model()->index(idx, 0).data(Qt::DisplayRole).toString();
+    QString bloc = ui->tableView_2->model()->index(idx, 1).data(Qt::DisplayRole).toString();
+    QString etat = ui->tableView_2->model()->index(idx, 2).data(Qt::DisplayRole).toString();
+    QString type = ui->tableView_2->model()->index(idx, 3).data(Qt::DisplayRole).toString();
+    ui->lineEdit_34->setText(numero);
+    ui->lineEdit_35->setText(bloc);
+    ui->lineEdit_36->setText(etat);
+    ui->lineEdit_37->setText(type);
+}
+
+void application::on_pushButton_29_clicked()
+{
+    int numero = ui->lineEdit_34->text().toInt();
+    QString bloc = ui->lineEdit_35->text();
+    QString etat = ui->lineEdit_36->text();
+    QString type = ui->lineEdit_37->text();
+
+    Salle salle(numero, bloc, etat, type);
+
+    if (salle.modifier(numero, bloc, etat, type)) {
+        QMessageBox::information(nullptr, QObject::tr("OK"),
+                                 QObject::tr("Ajout avec succees."),
+                                 QMessageBox::Ok);
+    }
+    else {
+        QMessageBox::critical(nullptr, QObject::tr("not OK"),
+                                 QObject::tr("Ajout non effectue."),
+                                 QMessageBox::Cancel);
+    }
+    ui->modifierwidget->hide();
+    show_tables();
+}
+
+void application::on_recherche_2_textChanged(const QString &arg1)
+{
+    proxy->setFilterFixedString(arg1);
+}
+
+// Tri:
+void application::on_tableView_2_clicked(const QModelIndex &index)
+{
+    QObject::connect(ui->tableView_2->horizontalHeader(), SIGNAL(sectionClicked(int)), this, SLOT(recordSelected()));
+}
+
+void application::recordSelected()
+{
+    int column = ui->tableView_2->currentIndex().column();
+//    qDebug() << column << '\n';
+//    ui->tableView->setSortingEnabled(true);
+    ui->tableView_2->sortByColumn(column, Qt::AscendingOrder);
+}
+
+void application::on_pushButton_18_clicked()
+{
+    ui->WebBrowser_2->dynamicCall("Navigate(const QString&)", "https://www.google.com/maps/place/ESPRIT/@36.9016729,10.1713215,15z");
+    ui->tableView_2->hide();
+    ui->WebBrowser_2->show();
+}
+
+void application::on_pushb_pdf_clicked()
+{
+    QString strStream;
+    QTextStream out(&strStream);
+    const int rowCount = ui->tableView_2->model()->rowCount();
+    const int columnCount =ui->tableView_2->model()->columnCount();
+
+
+    out <<  "<html>\n"
+            "<head>\n"
+            "<meta Content=\"Text/html; charset=Windows-1251\">\n"
+            <<  QString("<title>%1</title>\n").arg("salle")
+            <<  "</head>\n"
+            "<body bgcolor=#f0f0f0 link=#5000A0>\n"
+            "<h1>Liste des salles</h1>"
+
+            "<table border=1 cellspacing=0 cellpadding=2>\n";
+
+    // headers
+    out << "<thead><tr bgcolor=#f0f0f0>";
+    for (int column = 0; column < columnCount; column++)
+        if (!ui->tableView_2->isColumnHidden(column))
+            out << QString("<th>%1</th>").arg(ui->tableView_2->model()->headerData(column, Qt::Horizontal).toString());
+    out << "</tr></thead>\n";
+    // data table
+   for (int row = 0; row < rowCount; row++) {
+       out << "<tr>";
+       for (int column = 0; column < columnCount; column++) {
+           if (!ui->tableView_2->isColumnHidden(column)) {
+               QString data = ui->tableView_2->model()->data(ui->tableView_2->model()->index(row, column)).toString().simplified();
+               out << QString("<td bkcolor=0>%1</td>").arg((!data.isEmpty()) ? data : QString("&nbsp;"));
+           }
+       }
+       out << "</tr>\n";
+   }
+   out <<  "</table>\n"
+       "</body>\n"
+       "</html>\n";
+
+    QTextDocument *document = new QTextDocument();
+    document->setHtml(strStream);
+
+    QPrinter printer(QPrinter::PrinterResolution);
+    QString filename = "salle.pdf";
+    if (printer.isValid()) {
+        printer.setOutputFormat(QPrinter::PdfFormat);
+        printer.setOutputFileName(filename);
+        document->print(&printer);
+
+        QMessageBox::information(nullptr, QObject::tr("OK"),
+                    QObject::tr("Creation du fichier avec succees.\n"), QMessageBox::Ok);
+    }
+}
+
+
+
+//Navigation Buttons
+
 void application::on_commandLinkButton_clicked()
 {
     ui->stackedWidget->setCurrentIndex(3);
+}
+
+void application::on_commandLinkButton_3_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(4);
 }
 
 void application::on_commandLinkButton_4_clicked()
@@ -1007,6 +1200,12 @@ void application::on_commandLinkButton_4_clicked()
 void application::on_commandLinkButton_5_clicked()
 {
     ui->stackedWidget->setCurrentIndex(1);
+}
+
+
+void application::on_commandLinkButton_6_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(4);
 }
 
 void application::on_commandLinkButton_8_clicked()
@@ -1029,6 +1228,11 @@ void application::on_commandLinkButton_11_clicked()
     ui->stackedWidget->setCurrentIndex(1);
 }
 
+void application::on_commandLinkButton_13_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(4);
+}
+
 void application::on_commandLinkButton_14_clicked()
 {
    ui->stackedWidget->setCurrentIndex(3);
@@ -1037,6 +1241,11 @@ void application::on_commandLinkButton_14_clicked()
 void application::on_commandLinkButton_15_clicked()
 {
     ui->stackedWidget->setCurrentIndex(0);
+}
+
+void application::on_commandLinkButton_16_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(4);
 }
 
 void application::on_commandLinkButton_17_clicked()
@@ -1052,4 +1261,24 @@ void application::on_commandLinkButton_18_clicked()
 void application::on_commandLinkButton_19_clicked()
 {
     ui->stackedWidget->setCurrentIndex(2);
+}
+
+void application::on_commandLinkButton_21_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(0);
+}
+
+void application::on_commandLinkButton_23_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(2);
+}
+
+void application::on_commandLinkButton_24_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(3);
+}
+
+void application::on_commandLinkButton_25_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(1);
 }

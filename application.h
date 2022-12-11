@@ -8,6 +8,14 @@
 #include <QTcpSocket>
 #include <QHostAddress>
 #include <QSystemTrayIcon>
+#include <QSettings>
+#include <QAxWidget>
+#include <QTableWidgetItem>
+#include <QSortFilterProxyModel>
+#include <QTextStream>
+#include <QFileDialog>
+#include <QTextDocument>
+#include <QMessageBox>
 
 #include "employe.h"
 #include "session.h"
@@ -15,18 +23,11 @@
 #include "mail.h"
 #include "arduino.h"
 #include "materiel.h"
-
-
-#include "client.h"
-#include<QTextStream>
-#include<QFileDialog>
-#include<QPrinter>
-#include<QTextDocument>
-#include <QMessageBox>
 #include "stat_client.h"
 #include "ui_stat_client.h"
 #include "smtp_client.h"
-
+#include "client.h"
+#include "salle.h"
 
 namespace Ui {
 class application;
@@ -91,6 +92,8 @@ private:
     QByteArray data;
     QTcpSocket socket;
     Arduino A;
+    QSortFilterProxyModel *proxy;
+    Salle Esalle;
 
     //iheb
 
@@ -133,10 +136,6 @@ private:
 private slots:
     void on_pd_ajouter_1_clicked();
 
-
-    void on_pushButton_5_clicked();
-
-
     void on_delete_btn_1_clicked();
 
     void on_pd_ajouter_2_1_clicked();
@@ -169,6 +168,44 @@ private slots:
     void on_commandLinkButton_18_clicked();
 
     void on_commandLinkButton_17_clicked();
+
+    void recordSelected();
+
+    void on_ajouter_34_clicked();
+
+    void on_pushButton_30_clicked();
+
+    void on_supprimer_22_clicked();
+
+    void on_modifier_33_clicked();
+
+    void on_pushButton_29_clicked();
+
+    void on_recherche_2_textChanged(const QString &arg1);
+
+    void on_tableView_2_clicked(const QModelIndex &index);
+
+    void on_pushButton_18_clicked();
+
+    void on_pushb_pdf_clicked();
+
+    void show_tables();
+
+    void on_commandLinkButton_3_clicked();
+
+    void on_commandLinkButton_6_clicked();
+
+    void on_commandLinkButton_13_clicked();
+
+    void on_commandLinkButton_16_clicked();
+
+    void on_commandLinkButton_21_clicked();
+
+    void on_commandLinkButton_23_clicked();
+
+    void on_commandLinkButton_24_clicked();
+
+    void on_commandLinkButton_25_clicked();
 
 private:
     Client C ;
