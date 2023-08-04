@@ -7,5 +7,5 @@
   * Jendoubi Hafedh
   * Ben Lakhdher Farers
   * Selmi Mahdi
-  * Debaied Khalil
+  * Debaieb Khalil
   * Arfaoui Iheb
